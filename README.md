@@ -19,21 +19,22 @@
 
 ## The Problem
 
-If you run a pure self-storage facility, there are dozens of software options: SiteLink, StorEDGE, Easy Storage Solutions, Storeganise.
+If you run a pure self-storage facility, there are dozens of software options. They all assume storage is your only business.
 
 If you run storage alongside art studios, a commercial kitchen, an event venue, coworking, or rehearsal rooms, there is nothing. You end up paying for all of this:
 
-| What you need | Tool you're paying for | Cost |
+| What you need | What you're paying for | Cost |
 |---------------|----------------------|------|
-| Storage management | Easy Storage Solutions | $80-200/mo |
-| Resource booking | Skedda | $50-100/mo |
-| Event calendaring | Tockify | $8-20/mo |
-| Employee time tracking | TSheets/QuickBooks Time | $40-100/mo |
-| Task management | Trello / Asana | $10-50/mo |
-| CRM | Brevo / HubSpot | $25-100/mo |
+| Storage management | Storage SaaS platform | $80-400/mo |
+| Resource booking | Booking platform | $50-100/mo |
+| Event calendaring | Calendar widget | $8-20/mo |
+| Employee time tracking | Time tracking SaaS | $40-100/mo |
+| Task management | Project management tool | $10-50/mo |
+| CRM | CRM platform | $25-100/mo |
+| Contract e-signatures | E-signature service | $25-50/mo |
 | SEO & social media | Various tools | $50-200/mo |
-| Adwords & on-page SEO | ESS (bundled markup) | $$$$ |
-| **Total** | **8+ subscriptions & services** | **$500-1,500+/mo** |
+| Adwords & on-page SEO | Bundled with storage vendor (marked up) | $$$$ |
+| **Total** | **8-10 subscriptions & services** | **$500-1,500+/mo** |
 
 None of them talk to each other. The same customer exists in 4 different systems. You reconcile in spreadsheets. When someone rents a storage unit AND books the event space AND uses the kitchen, you're updating 3 dashboards manually.
 
@@ -106,9 +107,9 @@ There is no open-source self-storage management software. Bridge OS is the first
 | Frontend (admin) | Django templates, Tailwind CSS, Flowbite |
 | Frontend (timeclock) | React 18, TypeScript, Vite |
 | Frontend (website) | HTML, Tailwind CSS, vanilla JS |
-| Payments | Stripe |
-| Voice AI | Retell |
-| Gate access | PDK |
+| Payments | Stripe (pluggable) |
+| Voice AI | Pluggable (Retell adapter included) |
+| Gate access | Pluggable (PDK adapter included) |
 | E-signatures | WeasyPrint + ReportLab + pypdf |
 | PDF verification | SHA-256 dual-hash, QR codes |
 | Deployment | Docker, Railway (or any container host) |
@@ -168,8 +169,8 @@ apps/
 
 ## Who Is This Not For
 
-- Large REIT portfolios with 500+ facilities (use Storable/Monument)
-- Operators who want a vendor to handle everything (use Storeganise or ESS)
+- Large REIT portfolios with 500+ facilities (enterprise platforms exist for that)
+- Operators who want a vendor to handle everything (managed SaaS platforms exist for that)
 - People who need it to work perfectly out of the box today (we're still in active development)
 
 ## Status
@@ -191,8 +192,8 @@ Star this repo to follow progress. We'll tag releases as extraction milestones c
 - [x] E-signature and PDF generation
 - [x] Stripe payment integration
 - [x] Lien compliance (California)
-- [x] Voice AI integration (Retell)
-- [x] Gate access integration (PDK)
+- [x] Voice AI integration
+- [x] Gate access integration
 - [x] Public website with live availability
 - [x] E2E test suite
 - [ ] Branding extraction (configurable facility name, colors, assets)
@@ -220,18 +221,18 @@ Bridge OS replaces the entire stack of tools a mixed-use facility duct-tapes tog
 
 | Function | Before (separate tool) | Bridge OS |
 |----------|----------------------|-----------|
-| Storage management | ESS / SiteLink ($80-400/mo) | Built-in |
-| Resource & space booking | Skedda ($50-100/mo) | Built-in |
-| Event calendaring | Tockify ($8-20/mo) | Built-in |
-| Employee time tracking | TSheets ($40-100/mo) | Built-in (PWA) |
-| Task management | Trello ($10-50/mo) | Built-in (Kanban) |
-| CRM & customer records | Brevo ($25-100/mo) | Built-in |
-| Contract e-signatures | DocuSign ($25-50/mo) | Built-in |
+| Storage management | Storage SaaS ($80-400/mo) | Built-in |
+| Resource & space booking | Booking platform ($50-100/mo) | Built-in |
+| Event calendaring | Calendar widget ($8-20/mo) | Built-in |
+| Employee time tracking | Time tracking SaaS ($40-100/mo) | Built-in (PWA) |
+| Task management | Project management tool ($10-50/mo) | Built-in (Kanban) |
+| CRM & customer records | CRM platform ($25-100/mo) | Built-in |
+| Contract e-signatures | E-signature service ($25-50/mo) | Built-in |
 | Lien compliance | Spreadsheets + calendar reminders | Automated |
-| AI phone answering | Answering service ($200-500/mo) | Built-in (Retell) |
-| Gate access management | Separate vendor portal | Built-in (PDK) |
+| AI phone answering | Answering service ($200-500/mo) | Built-in |
+| Gate access management | Separate vendor portal | Built-in |
 | Customer self-service portal | Doesn't exist | Built-in |
-| Adwords & on-page SEO | ESS / agency (marked up) | You control it directly |
+| Adwords & on-page SEO | Bundled with vendor (marked up) | You control it directly |
 | **Total before** | **$750-1,900+/mo across 8-10 tools & services** | |
 | **Total with Bridge OS** | | **$0 (self-hosted) or hosting cost** |
 
@@ -239,19 +240,19 @@ Bridge OS replaces the entire stack of tools a mixed-use facility duct-tapes tog
 
 ## Compared To Storage Software
 
-| | Bridge OS | SiteLink | ESS | Storeganise |
-|---|---|---|---|---|
-| Open source | Yes | No | No | No |
-| Self-hosted | Yes | No | No | No |
-| Mixed-use (storage + events + studios + kitchen) | Native | No | No | No |
-| Replaces booking/calendar/CRM/tasks | Yes | No | No | No |
-| AI front desk (answers questions, takes payments, onboards) | Built-in | No | No | No |
-| E-signatures | Built-in | Add-on | Add-on | Add-on |
-| Employee timekeeping | Built-in | No | No | No |
-| Lien compliance automation | Built-in | Manual | Manual | No |
-| Price (self-hosted) | Free | $200-400/mo | $80-200/mo | $50-150/mo |
-| You own the code | Yes | No | No | No |
-| You own your data | Yes | Vendor controls | Vendor controls | Vendor controls |
+| | Bridge OS | Typical storage SaaS |
+|---|---|---|
+| Open source | Yes | No |
+| Self-hosted | Yes | No |
+| Mixed-use (storage + events + studios + kitchen) | Native | No |
+| Replaces booking/calendar/CRM/tasks | Yes | No |
+| AI front desk (answers questions, takes payments, onboards) | Built-in | No |
+| E-signatures | Built-in | Add-on or separate vendor |
+| Employee timekeeping | Built-in | No |
+| Lien compliance automation | Built-in | Manual |
+| Price (self-hosted) | Free | $80-400/mo |
+| You own the code | Yes | No |
+| You own your data | Yes | Vendor controls export |
 
 ## Get Involved
 

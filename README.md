@@ -75,7 +75,7 @@ There is no open-source self-storage management software. Bridge OS is the first
 - **Magic links** -- passwordless portal access for onboarding.
 
 ### AI & Automation
-- **Voice AI** -- Retell-powered phone system: answers calls, handles inquiries, routes to staff when needed.
+- **Voice AI** -- Retell-powered phone system that actually runs your front desk: answers customer questions, processes payments over the phone, gives lien status and balance-due information, provides gate hours, and walks new tenants through onboarding. Not a phone tree. A real conversation.
 - **AI assistant** -- natural language queries against facility data.
 - **Automated lien escalation** -- daily job checks overdue invoices, creates compliance tasks with escalating urgency.
 - **Recurring tasks** -- template-based task generation (daily, weekly, monthly, quarterly, seasonal).
@@ -142,7 +142,7 @@ apps/
 | scheduling | Resource booking, availability, public events |
 | tasks | Kanban board, recurring tasks, project management |
 | timekeeping | Clock in/out, job codes, payroll export |
-| voice | Retell AI phone system integration |
+| voice | AI front desk: answers questions, takes payments, gives lien/balance info, onboards tenants |
 | gate_events | PDK gate access control and audit log |
 | applications | Online unit applications and onboarding |
 | promotions | Promotional pricing and attribution |
@@ -245,7 +245,7 @@ Bridge OS replaces the entire stack of tools a mixed-use facility duct-tapes tog
 | Self-hosted | Yes | No | No | No |
 | Mixed-use (storage + events + studios + kitchen) | Native | No | No | No |
 | Replaces booking/calendar/CRM/tasks | Yes | No | No | No |
-| AI voice | Built-in | No | No | No |
+| AI front desk (answers questions, takes payments, onboards) | Built-in | No | No | No |
 | E-signatures | Built-in | Add-on | Add-on | Add-on |
 | Employee timekeeping | Built-in | No | No | No |
 | Lien compliance automation | Built-in | Manual | Manual | No |

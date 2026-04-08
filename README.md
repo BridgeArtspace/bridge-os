@@ -161,6 +161,61 @@ apps/
 | catalog | Service and product catalog |
 | signatures | Signature capture and storage |
 
+## What's Different About How This Was Built
+
+Bridge OS isn't just a codebase. It's a system designed to be developed, maintained, and extended by AI-assisted developers.
+
+### AI-Native Development Tooling
+
+**3,700+ lines of Claude Code rules** ship with the repo. These aren't comments or docs — they're structured instructions that give AI coding assistants deep context about every domain: how contracts work, what lien compliance requires, which state transitions are legal, how billing flows connect to payments. An AI assistant working on this codebase understands storage operations, not just Python syntax.
+
+```
+.claude/rules/
+  00-core.md              # Architecture, workflow, verification gates
+  10-python-django.md     # Service layer patterns, cross-domain rules
+  20-domains.md           # Entity relationships, state machines
+  22-workflows.md         # Staff operational workflows (move-in, move-out, payment)
+  25-scheduling.md        # Booking and task state machines
+  26-liens.md             # California lien compliance (full state machine + timeline)
+  27-contracts-esign.md   # Contract lifecycle, e-sign flow, PDF architecture
+  30-testing.md           # TDD requirements, coverage thresholds
+  40-ops.md               # CI/CD, migrations, deployment
+  50-ui.md                # Flowbite components, bridge-* CSS classes
+  60-security.md          # Auth, CSRF, input validation, secrets
+  70-cards.md             # Card-code bijection requirements
+```
+
+What this means in practice: a developer (or AI agent) can pick up any part of the codebase and understand the domain constraints, not just the code. The rules encode the operational knowledge of running a mixed-use facility.
+
+### Card-Based Domain Documentation
+
+Every model, command, job, and business rule has a corresponding documentation card — an Obsidian-compatible markdown file that stays in sync with the code. Cards use wikilinks for cross-references and code pointers for implementations. When the code changes, the card must change with it (enforced by convention).
+
+This is a **card-code bijection**: every significant code artifact has exactly one card, and every card points to exactly one implementation. No stale docs. No undocumented models.
+
+### Self-Healing CI Pipeline
+
+GitHub Issues labeled `autofix` are automatically picked up by Claude Code, which attempts a fix, runs tests, and opens a PR. If it fails, a retry sweep re-runs it (up to 3 attempts). If that fails, a local agent with unlimited context picks it up. Issues that are too large get automatically decomposed into sub-issues.
+
+```
+Issue filed → Claude Code attempts fix (30 turns)
+  → Success: PR opened, tests pass
+  → Failure: Retry sweep (gh run rerun, up to 3x)
+    → Failure: Local agent with unlimited turns
+      → Too large: Auto-decompose into sub-issues
+```
+
+### Test Coverage
+
+- **3,741 backend tests** (pytest)
+- **44 end-to-end specs** (Playwright) covering golden paths: unit rental, self-service onboarding, contract signing, payment processing, space booking
+- **OCR-based visual verification** — screenshots are OCR'd to verify rendered text matches expected content (catches CSS overflow, z-index, viewport issues that DOM inspection misses)
+- **159 management commands** for operations, data migration, and maintenance
+
+### Domain-Driven Architecture
+
+27 bounded contexts, each with its own models, services, and views. Business logic lives in the service layer, never in views. Domains communicate through service interfaces, never by importing each other's models directly. State machines are explicit (contracts, invoices, payments, liens, bookings, tasks all have documented state diagrams).
+
 ## Who Is This For
 
 - **Mixed-use facility operators.** You run storage alongside studios, kitchens, event spaces, coworking, rehearsal rooms, or maker spaces. No existing software handles your operation.
